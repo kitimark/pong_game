@@ -22,12 +22,12 @@ integer i, j;
 
 always @ (posedge clk)
 begin
-    for(j = 0; j < count + 1; j = j + 1) begin // fix bit-select with non-constant 
-        if (j == count) begin
+    for(j = 0; j < ROW; j = j + 1) begin // fix bit-select with non-constant 
+		if (j == count) begin
             for(i = 0; i < COL; i = i + 1) begin
                 j_out[i] = !input_matrix[j*COL+i];
-            end
-        end
+			end
+		end
     end
 end
 
