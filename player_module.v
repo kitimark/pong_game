@@ -20,7 +20,7 @@ always @ (en)
 begin
     if(en) begin
         for (i = 0; i < WIDTH ; i = i + 1)begin
-            out[WIDTH-i-1] = ((state_left < i && state_right > i) || i == state_left || i == state_right) ? 1 : 0;
+            out[i] = ((state_left < i && state_right > i) || i == state_left || i == state_right) ? 1 : 0;
             // fix state_left <= i && state_right >= i this expr can't use
         end
     end else begin
