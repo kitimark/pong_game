@@ -5,8 +5,8 @@ module player_module(
     en
 );
 
-parameter WIDTH = 4;
-parameter BIT_WIDTH = 2;
+parameter WIDTH = 8;
+parameter BIT_WIDTH = 3;
 
 input [BIT_WIDTH-1:0] state_left, state_right;
 input en;

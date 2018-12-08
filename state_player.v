@@ -7,24 +7,22 @@ module state_player(
     clk
 );
 
-parameter BIT_WIDTH = 2; // log2(WIDTH)
-parameter SIZE = 1;
-parameter START = 2;
+parameter BIT_WIDTH = 3; // log2(WIDTH)
+parameter SIZE = 2;
+parameter START = 4;
 
 input en, clk, left, right;
 
 output[BIT_WIDTH-1:0] state_left, state_right;
 reg[BIT_WIDTH-1:0] state_left, state_right;
-reg[1:0] player_input;
 reg clicked;
+
+wire[1:0] player_input;
+assign player_input = {left, right};
 
 always @ (posedge clk)
 begin
-    // initial player_input
-    player_input[1] = left;
-    player_input[0] = right;
-
-    // code
+	// state memmory
     if(!clicked) begin
         if(en) begin
             if(player_input == 2'b10 && state_left != 0) begin // left
