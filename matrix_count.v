@@ -1,20 +1,29 @@
 module matrix_count(
-    count,
+    count_col,
+    count_row,
     clk
 );
 
-parameter ROW = 4;
-parameter BIT_COUNT = 2; // log2(ROW)
+parameter ROW = 8;
+parameter BIT_COUNT = 3; // log2(ROW)
 
 input clk;
 
-output [BIT_COUNT-1:0] count;
+output [BIT_COUNT-1:0] count_row;
+reg [BIT_COUNT-1:0] count_row;
 
-reg [BIT_COUNT-1:0] count;
+output[1:0] count_col;
+reg[1:0] count_col;
 
 always @ (posedge clk)
 begin
-    count = count + 1;
+    count_row = count_row + 1;
+	case (count_row)
+      7 : count_col = 0;  
+      1 : count_col = 1;  
+      3 : count_col = 2;
+      5 : count_col = 3;
+    endcase
 end
 
 endmodule // matrix_count
