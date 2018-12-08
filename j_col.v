@@ -22,7 +22,7 @@ integer i, j;
 
 always @ (count_row)
 begin
-    j_out = (count_row[0]) ? ~input_matrix[15:8] : ~input_matrix[7:0]; 
+    j_out = ~input_matrix[7:0]; 
 end
 
 endmodule // j_col
