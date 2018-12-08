@@ -7,7 +7,6 @@ module j_col(
 
 parameter ROW = 8;
 parameter COL = 8;
-parameter PIXEL = ROW*COL;
 parameter BIT_COUNT = 3; // log2(ROW)
 
 input clk;
@@ -21,13 +20,9 @@ reg [COL-1:0] j_out;
 
 integer i, j;
 
-always @ (posedge clk)
+always @ (count_row)
 begin
-    for(j = 0; j < ROW; j = j + 1) begin // fix bit-select with non-constant 
-		if (j == count_row) begin
-            j_out = (j%2 == 0) ? ~input_matrix[7:0] : ~input_matrix[15:8]; 
-        end
-    end
+    j_out = (count_row[0]) ? ~input_matrix[15:8] : ~input_matrix[7:0]; 
 end
 
 endmodule // j_col
