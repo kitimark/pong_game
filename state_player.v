@@ -6,9 +6,9 @@ module state_player(
     clk
 );
 
-parameter BIT_WIDTH = 3; // log2(WIDTH)
-parameter SIZE = 2;
-parameter START = 4;
+parameter BIT_WIDTH = 4; // log2(WIDTH)
+parameter SIZE = 4;
+parameter START = 7;
 
 input en, clk, left, right;
 
@@ -27,7 +27,7 @@ begin
                 state_left = state_left - 1;
                 clicked = 1;
             end
-            if(player_input == 2'b01 && state_left != ~3'b0 - SIZE) begin // right
+            if(player_input == 2'b01 && state_left != ~4'b0 - SIZE) begin // right
                 state_left = state_left + 1;
                 clicked = 1;
             end

@@ -5,6 +5,7 @@ module game_process(
     player_right,
     player_left,
     pos_ball,
+	test_led,
     count,
     clk
 );
@@ -16,7 +17,7 @@ parameter BIT_OF_WIDTH = 4;
 output[15:0] matrix_out;
 reg[15:0] matrix_out;
 
-input[2:0] player_top, player_down, player_right, player_left;
+input[3:0] player_top, player_down, player_right, player_left;
 
 input[BIT_OF_WIDTH*2-1:0] pos_ball;
 wire[BIT_OF_WIDTH-1:0] x_pos, y_pos;
@@ -24,7 +25,7 @@ wire[BIT_OF_WIDTH-1:0] x_pos, y_pos;
 assign x_pos = pos_ball[5:3];
 assign y_pos = pos_ball[2:0];
 
-input clk;
+input clk, test_led;
 input[BIT_OF_WIDTH-1:0] count;
 
 integer i;
@@ -60,6 +61,9 @@ begin
             matrix_out[i] = (x_pos == i) ? 1 : matrix_out[i];
         end
     end
+	if(~test_led)begin
+		matrix_out = 16'hFFFF;
+	end
 end
 
 endmodule // game_process
