@@ -1,7 +1,7 @@
 //------------------------------------------------
 // Design Name : Supreme Dip-Switch
 // File Name   : Supreme_Ds.v
-// Function    : dip switch for ป้อง เกม
+// Function    : dip switch for pong game
 // Coder       : Kanapong Srianan
 // Date        : 10/12/2018
 //------------------------------------------------
@@ -42,4 +42,4 @@ begin
 		end
 			Prev_s = Next_s;
 	end	
-endmodule//End of Module D Flip-Flop
+end//End of Module 
