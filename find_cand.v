@@ -28,15 +28,19 @@ always @ (posedge clk)
 begin
 	if(x_pos == 1)begin //Left candidate
 		x_plate = 1;
+		y_plate = y_plate + 3;
 	end
 	if(x_pos == 14 , y_pos == 1)begin //Right candidate
 		x_plate = 15;
+		y_plate = y_plate + 3;
 	end
 	if(x_pos == 1 , y_pos == 14)begin //Down candidate
 		y_plate = 15;
+		x_plate = x_plate + 3;
 	end
 	if(y_pos ==1)begin//Top candidate
 		y_plate = 1;
+		x_plate = x_plate + 3;
 	end
 end
 
