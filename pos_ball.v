@@ -16,7 +16,6 @@ reg[BIT_OF_WIDTH-1:0] x_pos, y_pos;
 wire[1:0] x_vector, y_vector;
 assign x_vector = vector[3:2];
 assign y_vector = vector[1:0];
-
 output[BIT_OF_WIDTH*2-1:0] pos;
 wire[BIT_OF_WIDTH*2-1:0] pos;
 assign pos = {x_pos, y_pos};
