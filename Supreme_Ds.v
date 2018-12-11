@@ -1,23 +1,13 @@
-//------------------------------------------------
-// Design Name : Supreme Dip-Switch
-// File Name   : Supreme_Ds.v
-// Function    : dip switch for pong game
-// Coder       : Kanapong Srianan
-// Date        : 10/12/2018
-//------------------------------------------------
-module Supreme_Ds(
+module supreme_Ds(
 left_op   ,// Left output
 right_op  ,// Right output
 in_p[2:0]  ,// "0" , "1" , "2"
 clk         //clk   
 );
-//----------Input Ports----------------
 input[2:0] in_p;
 input clk;
-//----------Output Ports---------------
 output left_op , right_op;
 reg left_op , right_op;
-//---------Essential Variables+--------
 reg[2:0] Next_s , Prev_s;
 always @ (posedge clk)
 begin
@@ -42,4 +32,4 @@ begin
 		end
 			Prev_s = Next_s;
 	end	
-end//End of Module 
+end 
