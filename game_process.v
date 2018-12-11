@@ -25,7 +25,7 @@ assign x_pos = pos_ball[5:3];
 assign y_pos = pos_ball[2:0];
 
 input clk;
-input[2:0] count;
+input[BIT_OF_WIDTH-1:0] count;
 
 integer i;
 

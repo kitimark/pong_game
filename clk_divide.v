@@ -6,7 +6,7 @@ module clk_divide(
 input clk;
 output clk_div;
 
-reg[8:0] state;
+reg[7:0] state;
 
 reg clk_div;
 always @ (posedge clk)

@@ -1,28 +1,18 @@
 module j_col(
     j_out,
     input_matrix,
-    count_row,
-    clk
 );
 
-parameter ROW = 8;
-parameter COL = 8;
-parameter BIT_COUNT = 3; // log2(ROW)
+parameter ROW = 16;
+parameter COL = 16;
+parameter BIT_COUNT = 4; // log2(ROW)
 
-input clk;
-input [15:0] input_matrix;
-
-input [BIT_COUNT-1:0] count_row;
+input [COL-1:0] input_matrix;
 
 output [COL-1:0] j_out;
 
-reg [COL-1:0] j_out;
+wire [COL-1:0] j_out;
 
-integer i, j;
-
-always @ (count_row)
-begin
-    j_out = ~input_matrix[7:0]; 
-end
+assign j_out = input_matrix; 
 
 endmodule // j_col

@@ -4,8 +4,8 @@ module i_row(
     clk
 );
 
-parameter ROW = 8;
-parameter BIT_COUNT = 3; // log2(ROW)
+parameter ROW = 16;
+parameter BIT_COUNT = 4; // log2(ROW)
 
 input clk;
 input [BIT_COUNT-1:0] count;
