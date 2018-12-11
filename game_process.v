@@ -9,9 +9,9 @@ module game_process(
     clk
 );
 
-parameter SIZE = 2;
-parameter WIDTH = 8;
-parameter BIT_OF_WIDTH = 3;
+parameter SIZE = 4;
+parameter WIDTH = 16;
+parameter BIT_OF_WIDTH = 4;
 
 output[15:0] matrix_out;
 reg[15:0] matrix_out;
@@ -29,11 +29,11 @@ input[BIT_OF_WIDTH-1:0] count;
 
 integer i;
 
-always @ (posedge clk)
+always @ (count)
 begin
 	matrix_out = 0;
     // right player
-    matrix_out[7] = (WIDTH-player_right-3 < count && WIDTH-player_right+SIZE-2 > count) ? 1 : 0;
+    matrix_out[15] = (WIDTH-player_right-3 < count && WIDTH-player_right+SIZE-2 > count) ? 1 : 0;
     // left player
     matrix_out[0] = (player_left-1 < count && player_left+SIZE > count) ? 1 : 0;
     // top player
@@ -43,16 +43,16 @@ begin
     	end
         // conner
 		matrix_out[0] = 1;
-		matrix_out[7] = 1;
+		matrix_out[15] = 1;
 	end
     // down player
-	if(count == 7)begin
+	if(count == 15)begin
     	for(i = 1; i < WIDTH-1; i = i + 1)begin
         	matrix_out[i] = (player_down-1 < i && player_down+SIZE > i) ? 1 : 0;
     	end
         // conner
 		matrix_out[0] = 1;
-		matrix_out[7] = 1;
+		matrix_out[15] = 1;
 	end
 	// ball
     if(count == y_pos) begin
