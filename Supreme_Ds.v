@@ -14,22 +14,24 @@ begin
 	left_op = 0;
 	right_op = 0;
 	Next_s = in_p[2:0]; 
-	if (Next_s != 0 && Prev_s != 0)begin
-		if(Next_s == 2 && Prev_s == 0) begin
-			assign left_op = 1'b1; // output is left.
+	if(in_p == 3'b010 || 3'b100 || 3'b001)begin
+		if (Next_s != 0 && Prev_s != 0)begin
+			if(Next_s == 2 && Prev_s == 0) begin
+				assign left_op = 1'b1; // output is left.
+			end
+			else if(Next_s == 0 && Prev_s == 2)begin
+				assign right_op = 1'b1; // output is right.
+			end
 		end
-		else if(Next_s == 0 && Prev_s == 2)begin
-			assign right_op = 1'b1; // output is right.
-		end
+			else begin
+				if(Next_s > Prev_s) begin
+					right_op = 1'b1; // output is right.
+				end
+				if(Next_s < Prev_s) begin
+					left_op = 1'b1; // output is left.
+				end
+			end
+				Prev_s = Next_s;
+			end	
 	end
-		else begin
-			if(Next_s > Prev_s) begin
-				right_op = 1'b1; // output is right.
-			end
-			if(Next_s < Prev_s) begin
-				left_op = 1'b1; // output is left.
-			end
-		end
-			Prev_s = Next_s;
-	end	
-end 
+endmodule 
