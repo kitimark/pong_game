@@ -1,5 +1,5 @@
 module find_cand(
-	collide          , 
+	contact          , 
 	player_pos_top   ,
 	player_pos_down  ,
 	player_pos_left  ,
@@ -8,53 +8,50 @@ module find_cand(
 	clk		// "1"
 );
 
-parameter WIDTH = 16;
-parameter BIT_OF_WIDTH = 4;
+parameter WIDTH = 8;
+parameter BIT_OF_WIDTH = 3;
+parameter size = 2;
 
 input clk;
-input[BIT_OF_WIDTH-1:0] pos , player_pos_down , player_pos_left ,player_pos_right , player_pos_top;
+input[3:0] player_pos_down , player_pos_left ,player_pos_right , player_pos_top;
+input[BIT_OF_WIDTH*2-1:0] pos ;
 
 wire[BIT_OF_WIDTH-1:0] x_pos, y_pos;  
-assign x_pos = pos[3:2];
-assign y_pos = pos[1:0];
+assign x_pos = pos[5:3];
+assign y_pos = pos[2:0];
 
-output[1:0] collide;
-reg[1:0] collide;
-reg x_collide , y_collide;
-integer i , ans;
+output[1:0] contact;
+reg x_contact , y_contact;
+assign contact = {x_contact , y_contact};
+reg[1:0] ans;
+
 
 always @ (posedge clk)
 begin
 	if(x_pos == 1)begin //Left candidate
-		for (i = 0; i < player_pos_left + 4 ; i = i+1 ) begin
-		  		ans = (i>y_pos)?(i-y_pos):(i-y_pos); 
-				  if(ans <= 1 ) y_collide = 1'b1;
-				  else y_collide = 0'b0;
-		end
-		
+		ans[0] <= (player_pos_left > y_pos)?(player_pos_left - y_pos):(y_pos-player_pos_left);
+		ans[1] <= (player_pos_left + 1 > y_pos)?(player_pos_left + 1 - y_pos):(y_pos-player_pos_left + 1);
+		if(ans[0] <= 1 || ans[1] <= 1) y_contact = 1'b1;
+			else  y_contact = 0'b0;
 	end
-	if(x_pos == 14 && y_pos == 1)begin //Right candidate
-		for (i = player_pos_right ; i < player_pos_right + 4 ; i = i+1 ) begin
-		  		ans = (i>y_pos)?(i-y_pos):(i-y_pos); 
-				  if(ans <= 1 ) y_collide = 1'b1;
-				  else y_collide = 0'b0;
-		end
+	if(x_pos == 6 && y_pos == 1)begin //Right candidate
+		ans[0] <= (player_pos_right > y_pos)?(player_pos_right - y_pos):(y_pos-player_pos_right);
+		ans[1] <= (player_pos_right + 1 > y_pos)?(player_pos_right + 1 - y_pos):(y_pos-player_pos_right + 1);
+		if(ans[0] <= 1 || ans[1] <= 1) y_contact = 1'b1;
+			else  y_contact = 0'b0;
 	end
-	if(x_pos == 1 && y_pos == 14)begin //Down candidate
-		for (i = player_pos_down ; i < player_pos_down + 4 ; i = i+1 ) begin
-		  		ans = (i>x_pos)?(i-x_pos):(i-x_pos); 
-				if(ans <= 1 ) x_collide = 1'b1;
-		        else x_collide = 0'b0;
-		end
+	if(x_pos == 1 && y_pos == 6)begin //Down candidate
+		ans[0] <= (player_pos_down > x_pos)?(player_pos_down - x_pos):(x_pos-player_pos_down);
+		ans[1] <= (player_pos_down + 1 > x_pos)?(player_pos_down + 1 - x_pos):(x_pos-player_pos_down + 1);
+		if(ans[0] <= 1 || ans[1] <=1) x_contact = 1'b1;
+			else  x_contact = 0'b0;
 	end
 	if(y_pos ==1)begin//Top candidate
-		for (i = player_pos_top ; i < player_pos_top + 4 ; i = i+1 ) begin
-		  		ans = (i>x_pos)?(i-x_pos):(i-x_pos);
-				if(ans <= 1 ) x_collide = 1'b1;
-		        else x_collide = 0'b0; 
-		end
-		
+		ans[0] <= (player_pos_top > x_pos)?(player_pos_top - x_pos):(x_pos-player_pos_top);
+		ans[1] <= (player_pos_top + 1 > x_pos)?(player_pos_top + 1 - x_pos):(x_pos-player_pos_top + 1);
+		if(ans[0] <= 1 || ans[1 <= 1]) x_contact = 1'b1;
+			else  x_contact = 0'b0;
 	end
-	collide = {x_collide,y_collide};
+	
 end
 endmodule
