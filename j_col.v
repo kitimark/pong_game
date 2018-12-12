@@ -10,7 +10,7 @@ parameter COL = 8;
 parameter BIT_COUNT = 3; // log2(ROW)
 
 input clk;
-input [15:0] input_matrix;
+input [7:0] input_matrix;
 
 input [BIT_COUNT-1:0] count_row;
 

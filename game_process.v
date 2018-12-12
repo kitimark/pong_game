@@ -13,8 +13,8 @@ parameter SIZE = 2;
 parameter WIDTH = 8;
 parameter BIT_OF_WIDTH = 3;
 
-output[15:0] matrix_out;
-reg[15:0] matrix_out;
+output[7:0] matrix_out;
+reg[7:0] matrix_out;
 
 output[7:0] a_longggggg;
 reg[7:0] a_longggggg;
@@ -71,7 +71,7 @@ begin
 	if(count == 0)begin
 		matrix_out = top_block;
 	end
-	if(count == 6)begin
+	if(count == 7)begin
 		matrix_out = down_block;
 	end
 end
