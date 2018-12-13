@@ -55,9 +55,16 @@ begin
 	end
 	// ball
     if(count == y_pos) begin
-        for(i = 0; i < WIDTH; i = i + 1) begin
-            matrix_out[i] = (x_pos == i) ? 1 : matrix_out[i];
-        end
+        case (x_pos)
+            0 :  matrix_out = matrix_out | 8'b00000001;
+            1 :  matrix_out = matrix_out | 8'b00000010;  
+            2 :  matrix_out = matrix_out | 8'b00000100;
+            3 :  matrix_out = matrix_out | 8'b00001000;
+            4 :  matrix_out = matrix_out | 8'b00010000;
+            5 :  matrix_out = matrix_out | 8'b00100000;
+            6 :  matrix_out = matrix_out | 8'b01000000;
+            7 :  matrix_out = matrix_out | 8'b10000000;
+        endcase
     end
 end
 
