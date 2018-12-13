@@ -1,7 +1,6 @@
 module state_player(
     state_left,
-    left,
-    right,
+    Next_s,
     en,
     clk
 );
@@ -10,34 +9,31 @@ parameter BIT_WIDTH = 3; // log2(WIDTH)
 parameter SIZE = 2;
 parameter START = 4;
 
-input en, clk, left, right;
+input en, clk;
+input[2:0] Next_s;
+reg[2:0]Prev_s;
 
 output[BIT_WIDTH-1:0] state_left;
 reg[BIT_WIDTH-1:0] state_left;
-reg clicked;
-
-wire[1:0] player_input;
-assign player_input = {left, right};
 
 always @ (posedge clk)
 begin
-    if(!clicked) begin
+    if(Next_s != Prev_s && (Next_s == 3'b010 || Next_s == 3'b100 || Next_s == 3'b001))begin
         if(en) begin
-            if(player_input == 2'b10 && state_left != 0) begin // left
-                state_left = state_left - 1;
-                clicked = 1'b1;
+            if(Next_s == 3'b010 && Prev_s == 3'b100) begin
+                if(state_left != 0) begin // left
+                    state_left = state_left - 1;
+                end
             end
-            if(player_input == 2'b01 && state_left != ~3'b0 - 1) begin // right
+            if(Next_s == 3'b010 && Prev_s == 3'b001) begin // right
+                if(state_left != ~3'b0 - 1)begin
                 state_left = state_left + 1;
-                clicked = 1'b1;
+                end
             end
         end else begin
-            state_left = START - 1; 
+            state_left = 3; 
         end
-    end
-
-    if (clicked && player_input == 2'b00) begin
-        clicked = 1'b0;
+		Prev_s = Next_s;
     end
 end
 

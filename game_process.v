@@ -5,6 +5,7 @@ module game_process(
     player_top,
     player_down,
     count,
+	testled,
     clk
 );
 
@@ -19,10 +20,8 @@ input[2:0] player_top, player_down;
 
 input[BIT_OF_WIDTH-1:0] x_pos, y_pos;
 
-input clk;
+input clk, testled;
 input[2:0] count;
-
-integer i;
 
 always @ (posedge clk)
 begin
@@ -66,6 +65,9 @@ begin
             7 :  matrix_out = matrix_out | 8'b10000000;
         endcase
     end
+	if(testled) begin
+		matrix_out = 8'b11111111;
+	end
 end
 
 endmodule // game_process

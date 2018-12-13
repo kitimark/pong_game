@@ -34,8 +34,8 @@ begin
                     y_pos = y_pos - 1;
                 end
             end else begin
-                x_pos = 8'o3;
-                y_pos = 8'o4;
+                x_pos = 8'o2;
+                y_pos = 8'o2;
             end
         end
 	end
