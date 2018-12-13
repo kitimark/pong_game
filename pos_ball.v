@@ -11,6 +11,7 @@ parameter BIT_OF_WIDTH = 3;
 input clk, en;
 input[3:0] vector;
 
+reg[7:0] state;
 
 reg[BIT_OF_WIDTH-1:0] x_pos, y_pos; 
 wire[1:0] x_vector, y_vector;
@@ -23,21 +24,24 @@ assign pos = {x_pos, y_pos};
 
 always @ (posedge clk)
 begin
+	if(state == 0) begin
     if(en)begin
         if(x_vector[1] == 0)begin
             x_pos = x_pos + x_vector[0];
         end else begin
-            x_pos = x_pos - ~x_vector[0] + 1;
+            x_pos = x_pos - (~x_vector[0] + 1);
         end
         if(y_vector[1] == 0)begin
             y_pos = y_pos + y_vector[0];
         end else begin
-            y_pos = y_pos - ~y_vector[0] + 1;
+            y_pos = y_pos - (~y_vector[0] + 1);
         end
     end else begin
         x_pos = 8'o4;
         y_pos = 8'o4;
     end
+	end
+	state = state + 1;
 end
 
 endmodule // pos_ball
