@@ -30,7 +30,7 @@ begin
     // top player
 	if(count == 0)begin
         for(i = 1; i < WIDTH-1; i = i + 1)begin
-        	matrix_out[WIDTH - i - 1] = (player_top-1 < i && player_top+SIZE > i) ? 1 : 0;
+        	matrix_out[i] = (player_top-1 < i && player_top+SIZE > i) ? 1 : 0;
     	end
  
 	end
