@@ -1,8 +1,9 @@
 module game_process(
     matrix_out,
+    x_pos,
+    y_pos,
     player_top,
     player_down,
-    pos_ball,
     count,
     clk
 );
@@ -16,11 +17,7 @@ reg[15:0] matrix_out;
 
 input[2:0] player_top, player_down;
 
-input[BIT_OF_WIDTH*2-1:0] pos_ball;
-wire[BIT_OF_WIDTH-1:0] x_pos, y_pos;
-
-assign x_pos = pos_ball[5:3];
-assign y_pos = pos_ball[2:0];
+input[BIT_OF_WIDTH-1:0] x_pos, y_pos;
 
 input clk;
 input[2:0] count;
