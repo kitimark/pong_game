@@ -2,7 +2,8 @@ module pos_ball(
     x_pos, 
     y_pos,
     en,
-    vector, // {[1:0] x, [1:0] y}
+    x_in,
+    y_in,
 	endgame,    
 	clk
 );
@@ -10,32 +11,27 @@ module pos_ball(
 parameter WIDTH = 8;
 parameter BIT_OF_WIDTH = 3;
 
-input clk, en, endgame;
-input[3:0] vector;
+input clk, en, endgame, x_in, y_in;
 
 reg[9:0] state;
 
 output[BIT_OF_WIDTH-1:0] x_pos, y_pos; 
 reg[BIT_OF_WIDTH-1:0] x_pos, y_pos; 
 
-wire[1:0] x_vector, y_vector;
-assign x_vector = vector[3:2];
-assign y_vector = vector[1:0];
-
 always @ (negedge clk)
 begin
 	if(state == 0) begin
         if(endgame == 0) begin
             if(en)begin
-                if(x_vector[1] == 0)begin
-                    x_pos = x_pos + x_vector[0];
+                if(x_in == 0)begin
+                    x_pos = x_pos + 1;
                 end else begin
-                    x_pos = x_pos - (~x_vector[0] + 1);
+                    x_pos = x_pos - 1;
                 end
-                if(y_vector[1] == 0)begin
-                    y_pos = y_pos + y_vector[0];
+                if(y_in == 0)begin
+                    y_pos = y_pos + 1;
                 end else begin
-                    y_pos = y_pos - (~y_vector[0] + 1);
+                    y_pos = y_pos - 1;
                 end
             end else begin
                 x_pos = 8'o3;

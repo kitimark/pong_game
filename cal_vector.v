@@ -18,12 +18,12 @@ reg out_x, out_y, endgame;
 always @ (x_pos or y_pos)
 begin
     case (x_pos)
-        3'b000 : out_x = 0;
-        3'b111 : out_x = 1; 
+        3'b001 : out_x = 0;
+        3'b110 : out_x = 1; 
     endcase
 
     case (y_pos)
-        3'b001 : out_y = 0
+        3'b001 : out_y = 0;
         3'b110 : out_y = (state_down-1 < x_pos && state_down+2 > x_pos) ? 1 : 0;
 		3'b111 : endgame = 1;
     endcase
