@@ -31,7 +31,7 @@ begin
             if(player_input == 2'b10 && state_left != 0) begin // left
                 state_left = state_left - 1;
                 clicked = 1;
-				action = 2'b10;
+				action = 2'b11;
             end
             if(player_input == 2'b01 && state_left != ~3'b0 - SIZE + 1) begin // right
                 state_left = state_left + 1;
