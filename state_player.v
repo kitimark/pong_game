@@ -23,11 +23,11 @@ always @ (posedge clk)
 begin
     if(!clicked) begin
         if(en) begin
-            if(player_input == 2'b10 && state_left != 1) begin // left
+            if(player_input == 2'b10 && state_left != 0) begin // left
                 state_left = state_left - 1;
                 clicked = 1'b1;
             end
-            if(player_input == 2'b01 && state_left != ~3'b0 - SIZE) begin // right
+            if(player_input == 2'b01 && state_left != ~3'b0 - 1) begin // right
                 state_left = state_left + 1;
                 clicked = 1'b1;
             end

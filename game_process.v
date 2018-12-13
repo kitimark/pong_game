@@ -29,16 +29,29 @@ begin
 	matrix_out = 0;
     // top player
 	if(count == 0)begin
-        for(i = 1; i < WIDTH-1; i = i + 1)begin
-        	matrix_out[i] = (player_top-1 < i && player_top+SIZE > i) ? 1 : 0;
-    	end
- 
+        case(player_top)
+            0 : matrix_out = 8'b00000011; 
+            1 : matrix_out = 8'b00000110; 
+            2 : matrix_out = 8'b00001100; 
+            3 : matrix_out = 8'b00011000; 
+            4 : matrix_out = 8'b00110000; 
+            5 : matrix_out = 8'b01100000; 
+            6 : matrix_out = 8'b11000000; 
+            7 : matrix_out = 0;
+        endcase
 	end
     // down player
 	if(count == 7)begin
-    	for(i = 1; i < WIDTH-1; i = i + 1)begin
-        	matrix_out[i] = (player_down-1 < i && player_down+SIZE > i) ? 1 : 0;
-    	end
+        case (player_down)
+            0 : matrix_out = 8'b00000011; 
+            1 : matrix_out = 8'b00000110; 
+            2 : matrix_out = 8'b00001100; 
+            3 : matrix_out = 8'b00011000; 
+            4 : matrix_out = 8'b00110000; 
+            5 : matrix_out = 8'b01100000; 
+            6 : matrix_out = 8'b11000000; 
+			7 : matrix_out = 0;
+        endcase
 	end
 	// ball
     if(count == y_pos) begin
